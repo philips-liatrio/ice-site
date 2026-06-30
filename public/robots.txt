@@ -1,0 +1,9 @@
+# robots.txt — Ice Baseball
+# Public marketing site: allow all search engines to crawl everything.
+
+User-agent: *
+Allow: /
+
+# Sitemap: once a production domain is set (and a sitemap is generated),
+# uncomment the line below and use the absolute URL, e.g.:
+# Sitemap: https://icebaseball.org/sitemap-index.xml
