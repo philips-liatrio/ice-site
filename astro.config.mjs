@@ -11,5 +11,9 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  adapter: cloudflare()
+  // imageService: 'compile' optimizes images with sharp at BUILD time into
+  // static .webp files. Our pages are prerendered, so this avoids any runtime
+  // image endpoint / Cloudflare Images binding (which wasn't configured and
+  // caused images to break on Cloudflare).
+  adapter: cloudflare({ imageService: "compile" })
 });
