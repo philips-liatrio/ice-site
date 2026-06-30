@@ -1,9 +1,12 @@
-# robots.txt — Ice Baseball
-# Public marketing site: allow all search engines to crawl everything.
-
+# robots.txt - Ice Baseball
+#
+# PRE-LAUNCH: this site is a work in progress (placeholder/dummy data) and is
+# NOT ready to be indexed. Block all crawlers for now.
+#
+# >>> BEFORE LAUNCH: replace the rule below with an allow policy, e.g.:
+#       User-agent: *
+#       Allow: /
+#       Sitemap: https://icebaseball.org/sitemap-index.xml
+#
 User-agent: *
-Allow: /
-
-# Sitemap: once a production domain is set (and a sitemap is generated),
-# uncomment the line below and use the absolute URL, e.g.:
-# Sitemap: https://icebaseball.org/sitemap-index.xml
+Disallow: /
