@@ -1,0 +1,71 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { site } from "../config";
+
+// --- Edit tryout details here ---------------------------------------------
+const tryouts = {
+  location: "Volunteer Performance",
+  locationNote: "Knoxville location coming after the TSSAA dead period.",
+  nextDate: "Wednesday, July 1st",
+  nextTime: "7:00 PM",
+};
+---
+
+<Layout title="Tryouts" description="Sign up for Ice Baseball tryouts. Confirm your player can attend before registering.">
+  <PageHeader
+    title="Tryouts"
+    subtitle="Sign up below! Before signing up, please be certain that your party is able to attend."
+  />
+
+  <section class="mx-auto max-w-3xl px-4 py-16">
+    <!-- Next tryout card -->
+    <div class="rounded-2xl border border-navy-100 bg-navy-50/50 p-8">
+      <p class="font-display text-sm font-semibold uppercase tracking-wider text-ice-600">
+        Next Tryout
+      </p>
+      <p class="mt-2 font-display text-3xl font-bold text-navy-900">
+        {tryouts.nextDate} · {tryouts.nextTime}
+      </p>
+      <dl class="mt-6 grid gap-4 sm:grid-cols-2">
+        <div>
+          <dt class="text-sm font-semibold text-navy-700">Location</dt>
+          <dd class="mt-1 text-navy-700/80">{tryouts.location}</dd>
+        </div>
+        <div>
+          <dt class="text-sm font-semibold text-navy-700">Good to know</dt>
+          <dd class="mt-1 text-navy-700/80">{tryouts.locationNote}</dd>
+        </div>
+      </dl>
+
+      <a
+        href={site.links.tryoutForm}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-8 inline-block rounded-md bg-ice-500 px-8 py-3.5 font-display font-semibold uppercase tracking-wide text-navy-950 transition hover:bg-ice-400"
+      >
+        Sign Up Now
+      </a>
+      <p class="mt-3 text-sm text-navy-700/70">
+        Registration opens our secure Google Form in a new tab.
+      </p>
+    </div>
+
+    <!-- Private tryouts -->
+    <div class="mt-8 rounded-2xl border border-navy-100 p-8">
+      <h2 class="font-display text-2xl font-bold text-navy-900">Private Tryouts</h2>
+      <p class="mt-2 text-navy-700/80">
+        Can't make a group date? Private tryouts are available. Give us a call to set one up.
+      </p>
+      <a
+        href={site.phoneHref}
+        class="mt-4 inline-flex items-center gap-2 font-display text-lg font-semibold text-ice-600 hover:text-ice-500"
+      >
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"></path>
+        </svg>
+        {site.phone}
+      </a>
+    </div>
+  </section>
+</Layout>

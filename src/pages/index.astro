@@ -1,0 +1,94 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../config";
+
+const features = [
+  {
+    title: "Superior Coaching",
+    body: "Collegiate-experienced coaches committed to developing skilled, well-rounded athletes.",
+    icon: "M12 2 3 7v6c0 5 3.8 8.6 9 10 5.2-1.4 9-5 9-10V7l-9-5Z",
+  },
+  {
+    title: "Christ-Centered",
+    body: "We build character on and off the field through a Christ-like environment.",
+    icon: "M12 2v20M5 9h14",
+  },
+  {
+    title: "Affordable & Accessible",
+    body: "Elite-level development that stays within reach for East Tennessee families.",
+    icon: "M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6",
+  },
+];
+---
+
+<Layout>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-navy-950">
+    <div class="absolute inset-0 bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950"></div>
+    <div class="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-ice-500/20 blur-3xl"></div>
+    <div class="absolute -right-24 -bottom-24 h-80 w-80 rounded-full bg-ice-400/10 blur-3xl"></div>
+
+    <div class="relative mx-auto max-w-6xl px-4 py-24 sm:py-32">
+      <p class="font-display text-sm font-semibold uppercase tracking-[0.2em] text-ice-300">
+        {site.region}
+      </p>
+      <h1 class="mt-4 max-w-3xl font-display text-5xl font-bold leading-tight text-white sm:text-6xl lg:text-7xl">
+        Building dynamic competitors on and off the field.
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg text-navy-100/80">
+        {site.description}
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a
+          href="/tryouts"
+          class="rounded-md bg-ice-500 px-7 py-3.5 font-display font-semibold uppercase tracking-wide text-navy-950 transition hover:bg-ice-400"
+        >
+          Sign Up for Tryouts
+        </a>
+        <a
+          href="/about"
+          class="rounded-md border border-white/20 px-7 py-3.5 font-display font-semibold uppercase tracking-wide text-white transition hover:bg-white/10"
+        >
+          Learn About Ice
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature cards -->
+  <section class="mx-auto max-w-6xl px-4 py-20">
+    <div class="grid gap-6 md:grid-cols-3">
+      {
+        features.map((f) => (
+          <div class="rounded-2xl border border-navy-100 bg-navy-50/40 p-7 transition hover:shadow-lg">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-ice-500 text-navy-950">
+              <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d={f.icon} />
+              </svg>
+            </div>
+            <h3 class="mt-5 font-display text-xl font-bold text-navy-900">{f.title}</h3>
+            <p class="mt-2 text-navy-700/80">{f.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Tryouts CTA banner -->
+  <section class="bg-navy-900">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 py-14 text-center sm:flex-row sm:text-left">
+      <div>
+        <h2 class="font-display text-3xl font-bold text-white">Tryouts are open.</h2>
+        <p class="mt-2 text-navy-100/80">
+          Find a spot on an Ice team. Be sure your player can attend before signing up.
+        </p>
+      </div>
+      <a
+        href="/tryouts"
+        class="shrink-0 rounded-md bg-ice-500 px-7 py-3.5 font-display font-semibold uppercase tracking-wide text-navy-950 transition hover:bg-ice-400"
+      >
+        View Tryout Dates
+      </a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Brand theme — "Ice" palette: deep navy + ice blue + clean white.
+   These tokens become Tailwind utilities, e.g. bg-navy-900, text-ice-400.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-navy-50: #eef2f9;
+  --color-navy-100: #d5def0;
+  --color-navy-700: #1e2a4a;
+  --color-navy-800: #15203b;
+  --color-navy-900: #0d1628;
+  --color-navy-950: #070d18;
+
+  --color-ice-100: #e0f2fe;
+  --color-ice-200: #bae6fd;
+  --color-ice-300: #7dd3fc;
+  --color-ice-400: #38bdf8;
+  --color-ice-500: #0ea5e9;
+  --color-ice-600: #0284c7;
+
+  --font-display: "Oswald", "Arial Narrow", system-ui, sans-serif;
+}
+
+/* Display font for big headings (loaded in Layout.astro) */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+html {
+  scroll-behavior: smooth;
+}

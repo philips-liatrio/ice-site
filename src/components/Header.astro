@@ -1,0 +1,121 @@
+---
+import { Image } from "astro:assets";
+import { site } from "../config";
+import logo from "../assets/logo.png";
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-white/10 bg-navy-950/90 backdrop-blur"
+>
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+    <!-- Logo / wordmark -->
+    <a href="/" class="flex items-center gap-2.5">
+      <Image
+        src={logo}
+        alt={`${site.name} logo`}
+        width={44}
+        height={44}
+        class="h-10 w-10"
+      />
+      <span class="font-display text-xl font-bold tracking-wide text-white"
+        >{site.name}</span
+      >
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="hidden items-center gap-1 lg:flex">
+      {
+        site.nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                "rounded-md px-3 py-2 text-sm font-medium transition",
+                isActive(item.href)
+                  ? "bg-white/10 text-ice-300"
+                  : "text-navy-100 hover:bg-white/5 hover:text-white",
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <!-- Shop / cart link (points at external store) -->
+      <a
+        href={site.links.teamShop}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Team Shop"
+        class="flex h-9 w-9 items-center justify-center rounded-md text-navy-100 transition hover:bg-white/10 hover:text-white"
+      >
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+      </a>
+
+      <!-- Mobile menu toggle -->
+      <button
+        id="menu-toggle"
+        aria-label="Open menu"
+        aria-expanded="false"
+        class="flex h-9 w-9 items-center justify-center rounded-md text-white hover:bg-white/10 lg:hidden"
+      >
+        <svg id="menu-open-icon" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg id="menu-close-icon" viewBox="0 0 24 24" class="hidden h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile nav panel -->
+  <ul id="mobile-menu" class="hidden border-t border-white/10 px-4 pb-4 lg:hidden">
+    {
+      site.nav.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              "block rounded-md px-3 py-2.5 text-base font-medium transition",
+              isActive(item.href)
+                ? "bg-white/10 text-ice-300"
+                : "text-navy-100 hover:bg-white/5 hover:text-white",
+            ]}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  const openIcon = document.getElementById("menu-open-icon");
+  const closeIcon = document.getElementById("menu-close-icon");
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = menu?.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    toggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    openIcon?.classList.toggle("hidden", isOpen);
+    closeIcon?.classList.toggle("hidden", !isOpen);
+  });
+</script>

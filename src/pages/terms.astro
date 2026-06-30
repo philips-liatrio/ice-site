@@ -1,0 +1,48 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { site } from "../config";
+
+// Paste the real terms content from the old site into the sections below.
+const sections = [
+  {
+    heading: "Payments & Fees",
+    body: "Describe your team fees, payment schedule, and what they cover. (Replace this placeholder with the policy from your old site.)",
+  },
+  {
+    heading: "Refunds",
+    body: "Outline your refund policy here — what is and isn't refundable, and any deadlines.",
+  },
+  {
+    heading: "Code of Conduct",
+    body: "Set expectations for players, parents, and coaches in line with our Christ-centered values.",
+  },
+  {
+    heading: "Liability & Participation",
+    body: "Note any waivers, assumption-of-risk language, or participation requirements.",
+  },
+];
+---
+
+<Layout title="Terms" description="Ice Baseball terms, policies, and code of conduct.">
+  <PageHeader title="Terms & Policies" />
+
+  <section class="mx-auto max-w-3xl px-4 py-16">
+    <div class="space-y-10">
+      {
+        sections.map((s) => (
+          <div>
+            <h2 class="font-display text-2xl font-bold text-navy-900">{s.heading}</h2>
+            <p class="mt-3 leading-relaxed text-navy-700/90">{s.body}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-12 rounded-lg bg-navy-50 p-5 text-sm text-navy-700/80">
+      Questions about these terms? Email
+      <a href={`mailto:${site.email}`} class="font-semibold text-ice-600 hover:text-ice-500">{site.email}</a>
+      or call <a href={site.phoneHref} class="font-semibold text-ice-600 hover:text-ice-500">{site.phone}</a>.
+    </p>
+  </section>
+</Layout>

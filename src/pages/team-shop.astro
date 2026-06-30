@@ -1,0 +1,50 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { site } from "../config";
+---
+
+<Layout title="Team Shop" description="Shop official Ice Baseball gear and merchandise.">
+  <PageHeader
+    title="Team Shop"
+    subtitle="Official Ice Baseball gear, hats, and apparel."
+  />
+
+  <section class="mx-auto max-w-3xl px-4 py-16">
+    <div class="rounded-2xl border border-navy-100 bg-navy-50/50 p-8 text-center">
+      <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-ice-500 text-navy-950">
+        <svg viewBox="0 0 24 24" class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+      </div>
+      <h2 class="mt-6 font-display text-2xl font-bold text-navy-900">
+        Visit Our Online Store
+      </h2>
+      <p class="mt-3 text-navy-700/80">
+        Our gear lives on our secure store partner. Click below to browse and
+        order. If you're asked to create an account, you can skip it and check
+        out as a guest.
+      </p>
+
+      <div class="mt-6 inline-flex items-center gap-2 rounded-lg border border-dashed border-ice-500 bg-white px-4 py-2">
+        <span class="text-sm font-semibold text-navy-700">Invite code:</span>
+        <code class="font-display text-lg font-bold tracking-widest text-ice-600">
+          {site.links.teamShopCode}
+        </code>
+      </div>
+
+      <div class="mt-8">
+        <a
+          href={site.links.teamShop}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block rounded-md bg-ice-500 px-8 py-3.5 font-display font-semibold uppercase tracking-wide text-navy-950 transition hover:bg-ice-400"
+        >
+          Shop Now
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

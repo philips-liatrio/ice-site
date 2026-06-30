@@ -1,0 +1,99 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import Layout from "../layouts/Layout.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { teams } from "../data/coaches";
+
+// Eagerly load every photo in src/assets/coaches so we can look one up by the
+// filename stored in the data file. Astro optimizes each into a fast WebP.
+const photoModules = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/coaches/*.{jpeg,jpg,png,JPEG,JPG,PNG}",
+  { eager: true },
+);
+const getPhoto = (file?: string | null) =>
+  file ? photoModules[`../assets/coaches/${file}`]?.default : undefined;
+
+const activeTeams = teams.filter((t) => !t.pending);
+const pendingTeams = teams.filter((t) => t.pending);
+---
+
+<Layout title="Coaches" description="Meet the collegiate-experienced coaching staff developing Ice Baseball players from 9U through 18U across Knoxville and Chattanooga.">
+  <PageHeader
+    title="Our Coaches"
+    subtitle="Collegiate-experienced staff committed to developing players on and off the field — from 9U through 18U."
+  />
+
+  <section class="mx-auto max-w-6xl px-4 py-16">
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        activeTeams.map((team) => {
+          const photo = getPhoto(team.photo);
+          return (
+            <article class="flex flex-col overflow-hidden rounded-2xl border border-navy-100 bg-white transition hover:shadow-lg">
+              <div class="relative h-52 w-full bg-navy-900">
+                {photo ? (
+                  <Image
+                    src={photo}
+                    alt={team.photoAlt ?? `${team.name} coach`}
+                    width={700}
+                    class="h-full w-full object-cover"
+                    style={`object-position: ${team.focal ?? "center 30%"}`}
+                  />
+                ) : (
+                  <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-navy-800 to-navy-950">
+                    <span class="font-display text-3xl font-bold tracking-widest text-white/15">
+                      ICE
+                    </span>
+                  </div>
+                )}
+                <span class="absolute right-3 top-3 rounded-full bg-navy-950/80 px-3 py-1 font-display text-sm font-bold tracking-wide text-ice-300 backdrop-blur">
+                  {team.ageGroup}
+                </span>
+              </div>
+
+              <div class="flex flex-1 flex-col p-6">
+                <h2 class="font-display text-xl font-bold text-navy-900">{team.name}</h2>
+                <p class="mt-0.5 font-semibold text-ice-600">{team.coaches}</p>
+                {team.location && (
+                  <p class="mt-1 flex items-center gap-1 text-xs font-medium uppercase tracking-wider text-navy-700/50">
+                    <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    {team.location}
+                  </p>
+                )}
+                <p class="mt-3 text-sm text-navy-700/85 leading-relaxed">{team.bio}</p>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+
+    {
+      pendingTeams.length > 0 && (
+        <div class="mt-14">
+          <h2 class="font-display text-2xl font-bold text-navy-900">Coaching Positions Open</h2>
+          <p class="mt-2 text-navy-700/80">
+            We're growing! These teams have openings — interested in coaching with Ice?
+            <a href="/contact" class="font-semibold text-ice-600 hover:text-ice-500">Get in touch.</a>
+          </p>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {pendingTeams.map((team) => (
+              <div class="flex items-center justify-between gap-3 rounded-xl border border-dashed border-navy-200 bg-navy-50/40 px-5 py-4">
+                <div>
+                  <p class="font-display font-bold text-navy-900">{team.name}</p>
+                  <p class="text-sm text-navy-700/60">
+                    {team.location} · Position pending
+                  </p>
+                </div>
+                <span class="shrink-0 rounded-full bg-navy-200/70 px-3 py-1 font-display text-sm font-bold text-navy-700">
+                  {team.ageGroup}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </section>
+</Layout>
