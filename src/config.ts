@@ -20,7 +20,7 @@ export const site = {
   //    phone:        (865) 279-6401   /   tel:+18652796401
   //    teamShop:     https://team.shop   (invite code 3NQQ867R)
   //    tryoutForm:   (the real Google Form URL)
-  //    social:       the real Facebook / Instagram / X / TikTok profile URLs
+  //  (Social profile links are already the REAL public URLs — see `social`.)
   // ==========================================================================
 
   // --- Direct contact (DUMMY) -----------------------------------------------
@@ -38,12 +38,13 @@ export const site = {
     teamShopCode: "DEMO-0000",
   },
 
-  // --- Social media (DUMMY) -------------------------------------------------
+  // --- Social media (REAL — public profile links, safe to keep live) --------
   social: {
-    facebook: "https://example.com/facebook-placeholder",
-    instagram: "https://example.com/instagram-placeholder",
-    twitter: "https://example.com/x-placeholder",
-    tiktok: "https://example.com/tiktok-placeholder",
+    instagramHandle: "_icebaseball_", // shown as @_icebaseball_
+    facebook: "https://www.facebook.com/share/wn2JFHAHRQHdSg1U/",
+    instagram: "https://www.instagram.com/_icebaseball_",
+    twitter: "https://x.com/_icebaseball_",
+    tiktok: "https://www.tiktok.com/@icebaseball",
   },
 
   // --- Contact form delivery ------------------------------------------------

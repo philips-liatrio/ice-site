@@ -1,6 +1,27 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import SocialLinks from "../components/SocialLinks.astro";
 import { site } from "../config";
+import { teams } from "../data/coaches";
+
+// Home imagery (optimized at build time)
+import heroPhoto from "../assets/home/team-lineup.jpeg";
+import ringsPhoto from "../assets/home/rings.jpeg";
+import youthPhoto from "../assets/home/youth-rings.jpeg";
+// A few action shots reused for the social gallery
+import galleryA from "../assets/coaches/IMG_2539.jpeg";
+import galleryB from "../assets/coaches/IMG_9301.jpg";
+import galleryC from "../assets/coaches/IMG_0128.jpeg";
+
+const activeTeams = teams.filter((t) => !t.pending);
+
+const stats = [
+  { value: `${activeTeams.length}+`, label: "Competitive Teams" },
+  { value: "9U–18U", label: "Age Groups" },
+  { value: "2", label: "TN Regions" },
+  { value: "Collegiate", label: "Coaching Staff" },
+];
 
 const features = [
   {
@@ -19,23 +40,35 @@ const features = [
     icon: "M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6",
   },
 ];
+
+const gallery = [
+  { img: youthPhoto, alt: "Ice Baseball youth team with championship rings" },
+  { img: galleryA, alt: "Ice Baseball coach in the dugout" },
+  { img: galleryB, alt: "Ice Baseball player fielding" },
+  { img: galleryC, alt: "Ice Baseball player in the field" },
+];
 ---
 
 <Layout>
-  <!-- Hero -->
-  <section class="relative overflow-hidden bg-navy-950">
-    <div class="absolute inset-0 bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950"></div>
-    <div class="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-ice-500/20 blur-3xl"></div>
-    <div class="absolute -right-24 -bottom-24 h-80 w-80 rounded-full bg-ice-400/10 blur-3xl"></div>
+  <!-- Hero (full-bleed photo) -->
+  <section class="relative isolate overflow-hidden bg-navy-950">
+    <Image
+      src={heroPhoto}
+      alt="Ice Baseball team on the field"
+      widths={[768, 1280, 1920]}
+      sizes="100vw"
+      class="absolute inset-0 -z-10 h-full w-full object-cover object-center"
+    />
+    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-navy-950/95 via-navy-900/85 to-navy-900/55"></div>
 
-    <div class="relative mx-auto max-w-6xl px-4 py-24 sm:py-32">
+    <div class="relative mx-auto max-w-6xl px-4 py-28 sm:py-36">
       <p class="font-display text-sm font-semibold uppercase tracking-[0.2em] text-ice-300">
         {site.region}
       </p>
       <h1 class="mt-4 max-w-3xl font-display text-5xl font-bold leading-tight text-white sm:text-6xl lg:text-7xl">
         Building dynamic competitors on and off the field.
       </h1>
-      <p class="mt-6 max-w-2xl text-lg text-navy-100/80">
+      <p class="mt-6 max-w-2xl text-lg text-navy-100/90">
         {site.description}
       </p>
       <div class="mt-10 flex flex-wrap gap-4">
@@ -43,15 +76,31 @@ const features = [
           href="/tryouts"
           class="rounded-md bg-ice-500 px-7 py-3.5 font-display font-semibold uppercase tracking-wide text-navy-950 transition hover:bg-ice-400"
         >
-          Sign Up for Tryouts
+          Join Ice
         </a>
         <a
           href="/about"
-          class="rounded-md border border-white/20 px-7 py-3.5 font-display font-semibold uppercase tracking-wide text-white transition hover:bg-white/10"
+          class="rounded-md border border-white/30 bg-white/5 px-7 py-3.5 font-display font-semibold uppercase tracking-wide text-white backdrop-blur transition hover:bg-white/15"
         >
           Learn About Ice
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- Stats band -->
+  <section class="border-b border-navy-100 bg-navy-50/60">
+    <div class="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-10 sm:grid-cols-4">
+      {
+        stats.map((s) => (
+          <div class="text-center">
+            <div class="font-display text-3xl font-bold text-ice-600 sm:text-4xl">{s.value}</div>
+            <div class="mt-1 text-xs font-semibold uppercase tracking-wider text-navy-700/70 sm:text-sm">
+              {s.label}
+            </div>
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -74,21 +123,95 @@ const features = [
     </div>
   </section>
 
-  <!-- Tryouts CTA banner -->
+  <!-- Photo + text split -->
+  <section class="bg-navy-50/50">
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 py-20 lg:grid-cols-2">
+      <Image
+        src={ringsPhoto}
+        alt="Ice Baseball players showing off their championship rings"
+        widths={[600, 900, 1200]}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        class="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg"
+      />
+      <div>
+        <p class="font-display text-sm font-semibold uppercase tracking-[0.2em] text-ice-600">
+          The Ice Standard
+        </p>
+        <h2 class="mt-3 font-display text-3xl font-bold text-navy-900 sm:text-4xl">
+          A culture of competing — and growing.
+        </h2>
+        <p class="mt-4 text-lg leading-relaxed text-navy-700/85">
+          From 9U to 18U, our teams compete at a high level while developing
+          players who carry themselves with character on and off the field. With
+          collegiate-experienced coaches and a Christ-centered approach, Ice is
+          where East Tennessee athletes grow into their best.
+        </p>
+        <a
+          href="/coaches"
+          class="mt-7 inline-block rounded-md bg-navy-900 px-7 py-3.5 font-display font-semibold uppercase tracking-wide text-white transition hover:bg-navy-800"
+        >
+          Meet Our Coaches
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Evergreen "Join Ice" CTA -->
   <section class="bg-navy-900">
     <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 py-14 text-center sm:flex-row sm:text-left">
       <div>
-        <h2 class="font-display text-3xl font-bold text-white">Tryouts are open.</h2>
-        <p class="mt-2 text-navy-100/80">
-          Find a spot on an Ice team. Be sure your player can attend before signing up.
+        <h2 class="font-display text-3xl font-bold text-white">Interested in joining Ice?</h2>
+        <p class="mt-2 max-w-xl text-navy-100/80">
+          We're always looking for dedicated players ready to compete and grow.
+          See tryout details or reach out with any questions.
         </p>
       </div>
+      <div class="flex shrink-0 flex-wrap justify-center gap-4">
+        <a
+          href="/tryouts"
+          class="rounded-md bg-ice-500 px-7 py-3.5 font-display font-semibold uppercase tracking-wide text-navy-950 transition hover:bg-ice-400"
+        >
+          View Tryouts
+        </a>
+        <a
+          href="/contact"
+          class="rounded-md border border-white/30 px-7 py-3.5 font-display font-semibold uppercase tracking-wide text-white transition hover:bg-white/10"
+        >
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Follow us / social -->
+  <section class="mx-auto max-w-6xl px-4 py-20 text-center">
+    <h2 class="font-display text-3xl font-bold text-navy-900 sm:text-4xl">Follow Ice Baseball</h2>
+    <p class="mt-3 text-lg text-navy-700/80">
+      Game highlights, team news, and more —
       <a
-        href="/tryouts"
-        class="shrink-0 rounded-md bg-ice-500 px-7 py-3.5 font-display font-semibold uppercase tracking-wide text-navy-950 transition hover:bg-ice-400"
-      >
-        View Tryout Dates
-      </a>
+        href={site.social.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="font-semibold text-ice-600 hover:text-ice-500"
+      >@{site.social.instagramHandle}</a>
+    </p>
+
+    <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {
+        gallery.map((g) => (
+          <Image
+            src={g.img}
+            alt={g.alt}
+            widths={[300, 500]}
+            sizes="(min-width: 640px) 25vw, 50vw"
+            class="aspect-square w-full rounded-xl object-cover"
+          />
+        ))
+      }
+    </div>
+
+    <div class="mt-8 inline-flex rounded-xl bg-navy-900 px-5 py-3">
+      <SocialLinks />
     </div>
   </section>
 </Layout>
