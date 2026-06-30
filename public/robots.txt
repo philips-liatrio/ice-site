@@ -1,0 +1,12 @@
+# robots.txt - Ice Baseball
+#
+# PRE-LAUNCH: this site is a work in progress (placeholder/dummy data) and is
+# NOT ready to be indexed. Block all crawlers for now.
+#
+# >>> BEFORE LAUNCH: replace the rule below with an allow policy, e.g.:
+#       User-agent: *
+#       Allow: /
+#       Sitemap: https://icebaseball.org/sitemap-index.xml
+#
+User-agent: *
+Disallow: /
